@@ -53,6 +53,22 @@ export function createEventOperation({db,fail,now=Date.now}) {
   const selectedReading=[12,13,14].includes(op.selectedReading)?op.selectedReading:null;
   return {mode:op.storyMode==='ending'?'ending':op.storyMode==='reading-script'?'reading':'story',session:r.session,revision:r.revision,creditsRun:r.credits_run,storyId:op.storyMode==='random'?randomStory(op):selected(op),readingFiveIds:op.storyMode==='reading-five'?topFive(op).map(s=>s.id):[],readingAllIds:op.storyMode==='reading-all'?allReading(op).map(s=>s.id):[],operation:{intervalSeconds:interval(),storyMode:op.storyMode,endingText:op.endingText,selectedReading,readingText:op.storyMode==='reading-script'&&selectedReading!==null?op.reading[selectedReading]??'':'',readingOrder:op.readingOrder,running:op.running,paused:op.paused,runId:op.runId,elapsedMs:op.elapsedMs,scrollOffset:op.scrollOffset,timelineAt:op.timelineAt,scrollSpeed:op.scrollSpeed,scrollPaused:op.scrollPaused,ownerConnected:false,status:!op.running?'상영 정지':op.paused?'일시정지 · 진행 위치 보존':'상영 중 · 서버 진행'}};
  }
+ // Anonymous display contract: never spread the administrator's state. Candidate
+ // lists/order and even a reading-only mode paired with storyId reveal volunteers.
+ function publicState(at=now()){
+  const t=state(at),op=t.operation;
+  const storyMode=op.running&&['reading-script','ending'].includes(op.storyMode)?op.storyMode:'story';
+  return {
+   mode:storyMode==='ending'?'ending':storyMode==='reading-script'?'reading':'story',
+   session:t.session,revision:t.revision,creditsRun:t.creditsRun,
+   storyId:op.running&&storyMode==='story'?t.storyId:null,
+   operation:{storyMode,running:op.running,paused:op.paused,runId:op.runId,
+    intervalSeconds:op.intervalSeconds,scrollOffset:op.scrollOffset,scrollSpeed:op.scrollSpeed,scrollPaused:op.scrollPaused,
+    selectedReading:storyMode==='reading-script'?op.selectedReading:null,
+    readingText:storyMode==='reading-script'?op.readingText:'',
+    endingText:storyMode==='ending'?op.endingText:''},
+  };
+ }
  function detail(){return {theater:state(),configVersion:configRow().version,modes,reading:opOf(raw()).reading,stories:stories(),topFive:topFive(),allReading:allReading(),assignments:stmt('SELECT id,nickname,session,version,status FROM memories ORDER BY id').all(),intakeSession:stmt('SELECT intake_session FROM session_control WHERE id=1').get().intake_session};}
  function cas(b){const r=raw();if(!Number.isSafeInteger(b.revision)||b.revision!==r.revision)fail(409,'진행 상태가 바뀌었습니다. 자동 재시도하지 않습니다.');return r;}
  function execute(b,authorize){return atomic(()=>{
@@ -117,5 +133,5 @@ export function createEventOperation({db,fail,now=Date.now}) {
  function intervalChanged(oldInterval){const row=raw(),op=sample(opOf(row),now());resetIntervalPhase(op,oldInterval);save(row,op);}
  // Retired clients must not claim or mutate the new server timeline.
  function playback(b,session,authorize){authorize();fail(410,'구형 상영 제어는 종료됐습니다. 관리자에서 제어하세요.');}
- return {state,detail,execute,playback,stories,topFive,allReading,permitUntil,settingsChanged,intervalChanged};
+ return {state,publicState,detail,execute,playback,stories,topFive,allReading,permitUntil,settingsChanged,intervalChanged};
 }

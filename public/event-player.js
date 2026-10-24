@@ -17,14 +17,13 @@
  function freeze(){expire();emit('jungang-disconnected');}
  function render(data){
   const t=data.theater,op=t.operation;document.body.dataset.theater=t.mode;
-  const mode=op.storyMode,direct=['reading-five','reading-all'].includes(mode);
-  const ids=mode==='reading-five'?t.readingFiveIds.slice(0,5):mode==='reading-all'?t.readingAllIds:[];
-  const memory=op.running&&t.mode==='story'?data.memories.find(m=>m.id===t.storyId&&(!direct||ids.includes(m.id))):null;
+  // Eligibility/selection is enforced on the server, not by publishing a roster.
+  const mode=op.storyMode;
+  const memory=op.running&&t.mode==='story'?data.memories.find(m=>m.id===t.storyId):null;
   $('story-stage').hidden=!op.running||t.mode!=='story';$('story-stage').dataset.storyMode=mode;
   $('projector').dataset.font=['small','normal','large'].includes(data.config?.fontSize)?data.config.fontSize:'normal';
-  $('screen-eyebrow').hidden=!memory||!direct;$('screen-story-title').hidden=!memory||!direct||!memory.title?.trim();
-  put('screen-eyebrow',memory&&direct?`관객이 보내 온 장면  ${ids.indexOf(memory.id)+1} / ${ids.length}`:'');
-  put('screen-story-title',$('screen-story-title').hidden?'':memory.title);
+  $('screen-eyebrow').hidden=$('screen-story-title').hidden=true;
+  put('screen-eyebrow','');put('screen-story-title','');
   put('screen-text',memory?.text??'');put('screen-nickname',memory?(memory.nickname||'익명의 관객'):'');
   $('screen-nickname').hidden=!memory;
   $('screen-text').dataset.length=Array.from(memory?.text??'').length>75?'long':Array.from(memory?.text??'').length>38?'medium':'short';
@@ -33,7 +32,7 @@
  function accept(data,started,wallStarted,g){
   if(g!==generation||suspended)return;
   const at=Date.parse(data.serverTime),until=Date.parse(data.displayValidUntil),t=data.theater,op=t?.operation;
-  if(typeof data.instanceId!=='string'||!Number.isSafeInteger(data.snapshotSeq)||!Number.isSafeInteger(t?.revision)||!Number.isSafeInteger(data.revision)||!op||!Number.isFinite(at)||!Number.isFinite(until)||!Array.isArray(data.memories)||!Array.isArray(data.credits)||!Array.isArray(t.readingFiveIds)||!Array.isArray(t.readingAllIds)||!Number.isFinite(op.scrollOffset))throw Error('invalid state');
+  if(typeof data.instanceId!=='string'||!Number.isSafeInteger(data.snapshotSeq)||!Number.isSafeInteger(t?.revision)||!Number.isSafeInteger(data.revision)||!op||!Number.isFinite(at)||!Number.isFinite(until)||!Array.isArray(data.memories)||!Array.isArray(data.credits)||!['story','reading-script','ending'].includes(op.storyMode)||!(t.storyId===null||Number.isSafeInteger(t.storyId))||!Number.isFinite(op.scrollOffset))throw Error('invalid state');
   if(retired.has(data.instanceId))return;
   if(epoch===data.instanceId&&(data.snapshotSeq<=seq||t.revision<revision||data.revision<contentRevision||(data.configVersion??0)<configVersion))return;
   // Count the entire request round trip against permission, never renew stale data.

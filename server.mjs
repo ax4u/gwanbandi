@@ -103,7 +103,9 @@ function scene(text) {return /벚꽃|봄|꽃길/.test(text)?'blossom':/거리|�
 const toPublic=row=>({id:row.id,text:row.text,nickname:row.nickname,scene:row.scene,createdAt:new Date(row.created_at).toISOString()});
 function publicState() {
  return tx(() => {
-  const sampledAt=Date.now(),t=operation.state(sampledAt),s = settings(), cutoff = sampledAt - LEGACY_PUBLIC_MS;
+  const sampledAt=Date.now(),t=operation.publicState(sampledAt),s = settings(), cutoff = sampledAt - LEGACY_PUBLIC_MS;
+  const {version,config}=clientStore.event();
+  const {eventName,participationGuide,inputExample,waitingText,background,fontSize,intervalSeconds}=config;
   const where = PUBLIC_MEMORY_WHERE + ' AND session=(SELECT session FROM theater_state WHERE id=1)' + (s.paused ? ' AND id IN (SELECT id FROM frozen)' : '');
   const rows = stmt(`SELECT * FROM memories WHERE ${where} ORDER BY published_at DESC,id DESC LIMIT 10000`).all(cutoff);
   const credits=theaterStore.credits();
@@ -114,7 +116,8 @@ function publicState() {
    for(const credit of credits)validUntil=Math.min(validUntil,Date.parse(credit.expiresAt));
   }
   return {
-   ...clientStore.event(), revision:s.revision, paused:!!s.paused, approval:!!s.approval,
+   version,config:{eventName,participationGuide,inputExample,waitingText,background,fontSize,intervalSeconds},
+   revision:s.revision, paused:!!s.paused, approval:!!s.approval,
    theater:t, intakeSession:stmt('SELECT intake_session FROM session_control WHERE id=1').get().intake_session, credits, serverTime:new Date(sampledAt).toISOString(), displayHoldMs:6000, displayValidUntil:new Date(validUntil).toISOString(), instanceId, snapshotSeq:++snapshotSeq,
    memories:rows.map(row => toPublic({...row, text:row.display_text ?? row.text, scene:scene(row.display_text ?? row.text)})),
    total:stmt(`SELECT COUNT(*) AS n FROM memories WHERE ${where}`).get(cutoff).n,

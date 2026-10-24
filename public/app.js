@@ -225,26 +225,22 @@
     if(!show){put($('screen-text'),'');put($('screen-nickname'),'');return;}
     const latest = state.memories;
     const mode = state.theater.operation.storyMode;
-    const five = mode === 'reading-five', all = mode === 'reading-all', direct = five || all;
     $('story-stage').dataset.storyMode = mode;
-    // The server supplies only eligible current-session IDs in the operator's reading order.
-    const readingIds = five && Array.isArray(state.theater.readingFiveIds) ? state.theater.readingFiveIds.slice(0, 5) : all && Array.isArray(state.theater.readingAllIds) ? state.theater.readingAllIds : [];
+    // The public contract supplies a neutral current selection, never a reading roster.
     let memory = state.memories.find((item) => String(item.id) === currentId);
     if(state.theater.operation.storyMode!=='random')memory=state.memories.find(item=>String(item.id)===String(state.theater.storyId));
     else if(!localPaused&&!state.paused){memory=state.memories.find(item=>String(item.id)===String(state.theater.storyId));}
-    if(direct && !readingIds.some(id=>String(id)===String(memory?.id)))memory=null;
     currentId = memory ? String(memory.id) : null;
-    $('screen-eyebrow').hidden = !direct || !memory;
-    $('screen-story-title').hidden = !direct || !memory || typeof memory.title !== 'string' || !memory.title.trim();
-    put($('screen-story-title'), $('screen-story-title').hidden ? '' : memory.title);
+    $('screen-eyebrow').hidden = $('screen-story-title').hidden = true;
+    put($('screen-story-title'), '');
     if (memory) {
       put($('screen-text'), memory.text);
       $('screen-text').dataset.length = count(memory.text) > 75 ? 'long' : count(memory.text) > 38 ? 'medium' : 'short';
-      put($('screen-nickname'), memory.nickname || (direct ? '어느 관객의 기억' : '익명의 관객'));
+      put($('screen-nickname'), memory.nickname || '익명의 관객');
       $('scene-backdrop').dataset.scene = scenes.has(memory.scene) ? memory.scene : 'marquee';
       const index = latest.findIndex((item) => String(item.id) === currentId);
       put($('screen-position'), index < 0 ? '잠시 머무르는 추억' : `최근 추억 ${index + 1} / ${latest.length}`);
-      put($('screen-eyebrow'), direct ? `관객이 보내 온 장면  ${readingIds.findIndex(id=>String(id)===currentId)+1} / ${readingIds.length}` : '당신의 한 줄이, 오늘의 한 장면으로');
+      put($('screen-eyebrow'), '당신의 한 줄이, 오늘의 한 장면으로');
     } else {
       put($('screen-text'), display.waitingText === defaultDisplay.waitingText ? '기억이 모이면,\n다시 이야기가 시작됩니다.' : display.waitingText);
       $('screen-text').dataset.length = count(display.waitingText) > 75 ? 'long' : count(display.waitingText) > 38 ? 'medium' : 'short';
