@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d38">
+  <meta name="description" content="관객-반응-디피 시스템 (관반디). 당신의 소중한 기억을 한 줄로 남겨 주세요. 함께 남긴 추억이 상영 화면을 채웁니다.">
+  <title>관객-반응-디피 시스템 (관반디)</title>
+  <link rel="stylesheet" href="/jungang-memory/style.css">
+  <script src="/jungang-memory/app.js" defer></script>
+</head>
+<body data-page="participate">
+  <a class="skip-link" href="#memory-form">추억 남기기로 바로 가기</a>
+  <header class="site-header shell">
+    <a class="brand" href="/jungang-memory/" aria-label="관객-반응-디피 시스템 (관반디) 처음으로"><span class="brand-icon" aria-hidden="true">관</span><span data-event-name>관객-반응-디피 시스템 (관반디)<small>추억 상영회</small></span></a>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span aria-hidden="true">✦</span> 기억을 모으고, 마음을 잇다</p>
+        <h1 id="hero-title">관객의 반응,<br>함께 보는 <em>이야기.</em></h1>
+        <p id="event-intro" class="hero-description">관객의 생각과 반응을 나눠 주세요.<br>한 줄의 이야기를 함께 감상합니다.<br>한 줄의 추억이 오늘의 스크린을 채웁니다.</p>
+        <a class="button primary hero-cta" href="#memory-text">나의 추억 남기기 <span aria-hidden="true">↓</span></a>
+        <p class="hero-note">가입 없이 · 사진 없이 · 오직 당신의 한 줄</p>
+      </div>
+      <div class="hero-art" role="img" aria-label="관객의 이야기를 모으는 중립 기본 화면"><div class="art-caption"><span>당신의 이야기,<br>함께 보는 화면.</span></div></div>
+    </section>
+    <div class="participation-grid">
+      <section class="ticket-panel" aria-labelledby="form-title">
+        <div class="section-top"><p class="eyebrow">한 줄의 추억, 한 장의 티켓</p><span class="ticket-number" aria-hidden="true">ADMIT ONE</span></div>
+        <h2 id="form-title">나의 추억 남기기</h2>
+        <p id="participation-guide" class="section-description">사소한 기억도 좋아요. 당신의 말로 남겨 주세요.</p>
+        <noscript><p class="message error">추억을 보내고 새 글을 확인하려면 자바스크립트를 켜 주세요.</p></noscript>
+        <form id="memory-form" novalidate>
+          <p id="intake-session" role="status">접수 회차 확인 중</p>
+          <div class="field-heading"><label for="memory-text">함께 나누고 싶은 한 줄 <span class="required-label">필수</span></label><span id="text-count" class="character-count">0 / 120</span></div>
+          <textarea id="memory-text" name="text" rows="4" maxlength="120" placeholder="이곳에 당신의 기억을 적어 주세요." aria-describedby="text-help text-count form-message" required></textarea>
+          <p id="text-help" class="field-help">2~<span data-max-text>120</span>자 · 이름, 연락처 등 개인정보는 적지 마세요.</p>
+          <div class="field-heading"><label for="memory-question2">더 들려주고 싶은 이야기 <span class="optional-label">선택</span></label><span id="question2-count" class="character-count">0 / 500</span></div>
+          <textarea id="memory-question2" name="question2" rows="4" maxlength="500" aria-describedby="question2-help question2-count"></textarea>
+          <p id="question2-help" class="field-help">500자 이내 · 담당자만 확인합니다. 연락처·타인 개인정보는 적지 마세요.</p>
+          <fieldset class="read-aloud"><legend>사연을 직접 낭독해주시겠습니까 <span class="required-label">필수</span></legend><label><input id="read-aloud-yes" type="radio" name="readAloud" value="yes" required> 네</label><label><input id="read-aloud-no" type="radio" name="readAloud" value="no" required> 아니오</label><p class="field-help">낭독 의사는 담당자만 확인합니다. 크레딧 이름 공개·사진·영상 촬영 동의와 별개입니다.</p></fieldset>
+          <div class="field-heading nickname-heading"><label for="memory-nickname">별명 / 크레딧 표시명 <span class="optional-label">선택</span></label><span id="nickname-count" class="character-count">0 / 16</span></div>
+          <input id="memory-nickname" name="nickname" type="text" maxlength="16" autocomplete="off" placeholder="비워 두면 ‘익명의 관객’으로 표시해요" aria-describedby="nickname-help nickname-count form-message">
+          <p id="nickname-help" class="field-help">실명은 필요하지 않아요. 별명을 사용해 주세요. 비워 두면 엔딩 이름에는 나오지 않습니다.</p>
+          <label class="consent"><input id="memory-consent" type="checkbox" data-consent-policy="jungang-story-unlimited-v1" required><span>첫 문항의 글·별명(관리자가 나중에 수정한 표시 문구 포함)이 접수 후 관객-반응-디피 시스템 (관반디) 참여·상영 화면에 <strong>기간 제한 없이 공개·상영 가능</strong>하고, 모든 응답은 결과 정리를 위해 <strong>삭제 요청 또는 관리자 삭제 전까지 서버 DB에 보관</strong>되는 데 동의합니다. 질문2·낭독 의사는 담당자만 확인합니다. 동의하지 않으면 제출할 수 없습니다. 동의 철회·공개 중단·삭제 요청: <span>__DELETION_CONTACT__</span>. 운영자가 확인 후 숨김·삭제합니다. <span class="required-label">필수</span></span></label>
+          <label class="consent"><input id="credit-consent" type="checkbox"><span>오늘 엔딩 크레딧에 위 별명 / 표시명을 공개하는 데 동의합니다. <span class="optional-label">선택</span><br>체크하지 않아도 추억을 보낼 수 있어요. 현재 회차의 공개 가능한 글 중 동의한 이름만 표시되며, 같은 이름은 한 번만 나옵니다.</span></label>
+          <p id="form-message" class="form-message" role="status" aria-live="polite" aria-atomic="true">참여 연결을 확인하고 있어요.</p>
+          <div class="form-actions"><button id="submit-memory" class="button primary" type="submit" disabled>스크린에 추억 보내기 <span aria-hidden="true">↗</span></button><button id="discard-request" class="button text-button" type="button" hidden>전송 요청 정리하기</button></div>
+        </form>
+        <section id="submission-receipt" class="receipt" aria-labelledby="receipt-title" tabindex="-1" hidden>
+          <span class="receipt-mark" aria-hidden="true">✓</span><h3 id="receipt-title">추억을 잘 받았어요.</h3><p id="receipt-description"></p><p class="field-help">소중한 한 줄을 나눠 주셔서 감사합니다.</p><button id="write-another" class="button secondary" type="button">다른 추억 남기기</button>
+        </section>
+        <div class="ticket-bottom"><span aria-hidden="true" class="ticket-dashes"></span><p>추억은 서로의 것입니다. 다정한 말로 함께해 주세요.</p></div>
+      </section>
+      <aside class="participation-guide" aria-labelledby="guide-title">
+        <p class="eyebrow">함께 만드는 상영회</p><h2 id="guide-title">당신의 기억이<br>다음 장면이 됩니다.</h2>
+        <ol class="steps"><li><span class="step-number" aria-hidden="true">01</span><div><h3>떠오르는 기억 한 줄</h3><p>극장과 동네에 얽힌 나만의 추억을 적어 주세요.</p></div></li><li><span class="step-number" aria-hidden="true">02</span><div><h3>함께 보는 스크린</h3><p id="approval-description">운영자의 공개 설정에 따라 추억을 소개합니다.</p></div></li><li><span class="step-number" aria-hidden="true">03</span><div><h3>결과 정리를 위한 기록</h3><p>응답은 서버 DB에 보관합니다. 관리자 CSV 내보내기를 지원하며 Google Sheets 자동 동기화는 하지 않습니다. 사진이나 계정은 받지 않아요.</p></div></li></ol>
+        <div class="privacy-note"><span aria-hidden="true">✳</span><p>전화번호·이메일·실명·타인의 개인정보는 남기지 마세요. 부적절한 내용은 공개되지 않거나 숨겨질 수 있어요.</p></div>
+      </aside>
+    </div>
+    <section class="memories-section" aria-labelledby="memories-title">
+      <div class="memories-heading"><div><p class="eyebrow">우리의 기억이 모이는 곳</p><h2 id="memories-title">지금, 함께 나눈 추억 <span id="memory-total" class="count-badge" aria-label="공개된 추억 수">—</span></h2></div><div class="connection-tools"><span id="connection-status" class="connection-status" role="status" aria-live="polite">연결 확인 중</span><button id="reconnect" class="button small secondary" type="button" hidden>다시 연결</button></div></div>
+      <p id="public-pause-notice" class="message" hidden>상영 화면이 잠시 멈춰 있어요. 추억 남기기는 계속할 수 있습니다.</p>
+      <div id="memories-empty" class="empty-state"><span aria-hidden="true">✦</span><h3 id="empty-title">추억을 불러오고 있어요.</h3><p id="empty-description">함께 남긴 한 줄이 이곳에 모입니다.</p></div>
+      <div id="memory-list" class="memory-grid"></div>
+      <p class="archive-note">새 공개·보관 안내에 동의한 추억은 공개·상영 기간 제한이 없습니다. 기존 글은 당시 동의한 공개 조건을 유지합니다. 화면은 공개 가능한 글 중 일부를 순서대로 보여 드립니다. 참여자의 개인적인 기억이며, 확인된 역사 기록은 아닙니다.</p>
+    </section>
+  </main>
+  <footer class="site-footer shell"><div class="footer-brand" data-event-name>관객-반응-디피 시스템 (관반디)</div><p>우리가 기억하는 만큼, 이야기는 계속됩니다.</p><p class="fine-print">새 동의 글: 공개·상영 기간 제한 없음 · 응답은 삭제 요청 또는 관리자 삭제 전까지 DB 보관<br>동의 철회·공개 중단·삭제 요청: <span>__DELETION_CONTACT__</span><br>회원가입·사진 업로드·생성형 API 사용 없음</p></footer>
+</body>
+</html>

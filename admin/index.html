@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#173d38">
+  <title>비공개 운영실 | 관객-반응-디피 시스템 (관반디)</title>
+  <link rel="stylesheet" href="/control/assets/admin.css">
+  <script src="/control/assets/admin.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로 가기</a>
+  <header class="admin-header"><div><span class="brand-tag">관객-반응-디피 시스템 (관반디)</span><h1>추억 상영회 <span>운영실</span></h1></div><div class="header-actions"><span class="private-badge">SSH 로컬 전용</span><button id="logout" class="button secondary" type="button" hidden>로그아웃</button></div></header>
+  <main id="main" class="admin-main">
+    <section id="login-panel" class="login-panel" aria-labelledby="login-title"><p class="eyebrow">PRIVATE CONTROL ROOM</p><h2 id="login-title">운영자 로그인</h2><p>SSH 터널로 연결한 비공개 운영 화면입니다.<br>서버에서 전달받은 관리 키를 입력하세요.</p><form id="login-form"><label for="admin-key">관리 키</label><input id="admin-key" name="key" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required aria-describedby="login-help login-message"><p id="login-help" class="field-help">키를 주소창이나 채팅에 붙여 넣지 마세요. 이 화면은 키를 저장하지 않습니다.</p><button id="login-button" class="button primary" type="submit">운영실 입장</button><p id="login-message" class="message" role="status" aria-live="polite">로그인 상태를 확인하고 있습니다.</p></form></section>
+    <div id="dashboard" hidden>
+      <div class="dashboard-heading"><div><p class="eyebrow">관객-반응-디피 시스템 (관반디)</p><h2 tabindex="-1" id="dashboard-title">오늘의 상영을 관리하세요.</h2></div><div class="connection-tools"><span id="admin-connection" role="status" aria-live="polite">연결 확인 중</span><button id="refresh" class="button secondary" type="button">새로고침</button></div></div>
+      <section class="settings-panel" aria-labelledby="settings-title"><div class="settings-heading"><h3 id="settings-title">상영 설정</h3><p>상영을 멈춰도 추억 접수와 긴급 숨김은 계속됩니다.</p></div><form id="settings-form"><div class="settings-options"><label class="setting-option"><input id="setting-paused" type="checkbox"><span><strong>상영 일시정지</strong><small>현재 추억을 유지하고 자동 전환을 멈춥니다.</small></span></label><label class="setting-option"><input id="setting-approval" type="checkbox"><span><strong>이전 승인 설정 (보존용)</strong><small>ON/OFF와 관계없이 새 동의 글은 접수 후 상영 가능합니다. 기존 대기·숨김·관리자 수정은 유지됩니다.</small></span></label></div><div class="settings-actions"><button id="save-settings" class="button primary" type="submit" disabled>설정 저장</button><p id="settings-message" class="message" role="status" aria-live="polite">서버의 설정을 불러오고 있습니다.</p></div></form></section>
+      <section class="moderation-panel" aria-labelledby="moderation-title"><div class="moderation-heading"><h3 id="moderation-title">접수된 추억</h3><p>숨긴 글은 공개 페이지와 상영 화면에서 제외됩니다. 새 동의 글만 기간 제한 없이 공개되며, 기존 글은 작성 후 7일 공개 조건을 유지합니다. 상영 허용 상태여도 기존 공개기간이 끝난 글은 재공개되지 않습니다. 삭제·동의 철회 문의 __DELETION_CONTACT__ 확인 후 숨김 처리하고, 영구 삭제는 행사 관리 화면에서 수행하세요.</p></div><div class="filter-toolbar" role="group" aria-label="추억 상태 필터"><button class="filter-button" type="button" data-filter="all" aria-pressed="true">전체 <span id="count-all">0</span></button><button class="filter-button" type="button" data-filter="pending" aria-pressed="false">승인 대기 <span id="count-pending">0</span></button><button class="filter-button" type="button" data-filter="visible" aria-pressed="false">공개 <span id="count-visible">0</span></button><button class="filter-button" type="button" data-filter="hidden" aria-pressed="false">숨김 <span id="count-hidden">0</span></button></div><p id="moderation-message" class="message" role="status" aria-live="polite"></p><div id="admin-empty" class="empty-state"><h4>아직 접수된 추억이 없습니다.</h4><p>접수되는 글을 이곳에서 확인하고 관리할 수 있습니다.</p></div><div id="admin-memories" class="admin-memories"></div></section>
+    </div>
+    <noscript><p class="message error">운영 기능을 사용하려면 자바스크립트를 켜 주세요.</p></noscript>
+  </main>
+  <footer class="admin-footer">비공개 운영실 · 관리 키는 브라우저에 저장하지 않습니다.<br>개인정보를 포함한 글은 공개하지 말고 숨김 처리해 주세요.</footer>
+</body>
+</html>

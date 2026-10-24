@@ -1,0 +1,11 @@
+관객-반응-디피 시스템 (관반디)
+
+프로젝트 소스: MIT License
+Copyright (c) 2026 AX4U
+이용·수정·재배포 조건 전문은 루트 LICENSE를 참조하세요.
+package.json의 license 값은 MIT입니다.
+
+동봉한 제3자 폰트에는 각각의 SIL Open Font License 1.1이 독립적으로 적용됩니다.
+public/assets/Pretendard-LICENSE.txt
+public/assets/NanumBrushScript-OFL.txt
+제3자 저작권·라이선스 고지를 삭제하거나 프로젝트 MIT 라이선스로 대체하지 마세요.

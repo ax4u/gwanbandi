@@ -1,0 +1,25 @@
+관객-반응-디피 시스템 (관반디) — 제3자 자료
+
+포함
+  public/assets/Pretendard-SemiBold.woff2
+    Copyright (c) 2021, Kil Hyung-jin; Reserved Font Name Pretendard.
+    SIL OFL 1.1. 전문: public/assets/Pretendard-LICENSE.txt
+    출처: https://github.com/orioncactus/pretendard
+    별도 파일 그대로 제공하며 CSS에서 참조합니다. 폰트 수정 없음.
+  public/assets/NanumBrushScript-Regular.ttf
+    Copyright (c) 2010, NHN Corporation; Reserved Font Names는 고지 전문 참조.
+    SIL OFL 1.1. 전문: public/assets/NanumBrushScript-OFL.txt
+    출처: https://github.com/google/fonts/tree/main/ofl/nanumbrushscript
+    기존 호환 자산으로 보존합니다. 폰트 수정 없음.
+
+폰트 고지의 저작권자 이름·URL은 고지 의무에 필요한 정보입니다.
+앱 프로젝트의 라이선스 선택과 폰트의 OFL은 별개입니다.
+
+포함하지 않음
+  행사 사진, 슬라이드/PPTX 추출 배경, 원본 무대 이미지, 일러스트,
+  기존 접수 URL QR, 외부 엔딩 아티팩트 링크, 행사 MP3.
+  공개 재배포 권리 근거를 확인하지 못했으므로 기본 화면은 CSS 단색,
+  기본 오디오는 무음으로 제공합니다. 운영 원본은 이 패키지에 없습니다.
+  BGM_FILE은 운영자가 직접 확보한 MP3 경로를 지정하는 선택 설정입니다.
+  설정한 음원 URL은 공개적으로 접근할 수 있으므로 전송·공연·재배포 권리를
+  확인해야 합니다. 권리를 얻지 않은 음원을 저장소에 추가하지 마세요.

@@ -1,0 +1,14 @@
+{
+  "name": "gwanbandi",
+  "version": "0.1.0",
+  "private": false,
+  "description": "관객-반응-디피 시스템 (관반디)",
+  "type": "module",
+  "license": "MIT",
+  "engines": {"node": ">=22.13.0"},
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "account": "node --env-file-if-exists=.env deploy/client-access.mjs",
+    "test": "node --test tests/integration.test.mjs"
+  }
+}

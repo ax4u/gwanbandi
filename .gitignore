@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+data/
+.test-tmp/
+node_modules/
+*.sqlite*
+*.db*
+*.key
+*.pem
+*.log
+coverage/
+test-results/
+playwright-report/
+.cache/
+.DS_Store

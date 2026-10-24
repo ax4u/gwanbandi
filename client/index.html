@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#173d38">
+  <title>행사 운영 | 관객-반응-디피 시스템 (관반디)</title>
+  <link rel="stylesheet" href="/jungang-memory/manage/client.css">
+  <link rel="stylesheet" href="/jungang-memory/theater.css">
+
+  <script src="/jungang-memory/manage/client.js" defer></script>
+  <script src="/jungang-memory/manage/event-console.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로 가기</a>
+  <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">관</span><span>관객-반응-디피 시스템 (관반디)<small>행사 운영 · 담당자 전용</small></span></div><button id="logout" class="quiet" type="button" hidden>로그아웃</button></header>
+  <main id="main" class="shell">
+    <section id="login-panel" class="login-panel" aria-labelledby="login-title">
+      <p class="eyebrow">오늘의 상영을 준비하는 곳</p>
+      <h1 id="login-title">담당자 로그인</h1>
+      <p class="lede">안내 문구부터 상영 화면까지.<br>미리 확인한 뒤, 원하는 순간에 공개하세요.</p>
+      <form id="login-form">
+        <label for="username">아이디</label><input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="120" required>
+        <label for="password">비밀번호</label><input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" required>
+        <button id="login-button" class="primary" type="submit">로그인</button>
+      </form>
+      <p id="login-message" class="message" role="status" aria-live="polite">전달받은 행사 전용 계정으로 접속해 주세요.</p>
+      <p class="note">기존 행사 계정은 그대로 사용할 수 있습니다. 짧은 ID·암호는 운영자가 별도 발급한 유효기간 내 행사 계정에만 적용됩니다. 5자 이하 암호는 추측 공격을 완전히 막지 못합니다. 잠금·만료 시 운영자에게 문의하세요.<br>참여자는 로그인하지 않습니다. 계정은 공유하지 말고 공용 기기에서는 운영 후 로그아웃해 주세요.</p>
+    </section>
+    <div id="dashboard" hidden>
+      <section class="heading"><div><p class="eyebrow">한 줄의 기억, 함께 만드는 상영</p><h1 id="dashboard-title" tabindex="-1">행사 운영</h1><p id="published-summary" class="lede"></p></div><div class="heading-actions"><span id="connection" class="pill">상태 확인 중</span><button id="refresh" type="button">현재 상태 새로 불러오기</button></div></section>
+      <p id="global-message" class="notice" role="status" aria-live="polite">수정한 내용은 미리보기만으로 공개되지 않습니다.</p>
+      <nav class="console-tabs" aria-label="운영 메뉴"><button type="button" data-console-tab="run" aria-selected="true">사연 상영</button><button type="button" data-console-tab="review" aria-selected="false">검수</button><button type="button" data-console-tab="advanced" aria-selected="false">설정</button></nav>
+      <div id="console-run" class="console-page">
+        <section class="panel console-main" aria-labelledby="console-title"><div class="section-heading"><div><h2 id="console-title">사연 3모드 · 낭독 원고 · 엔딩</h2></div><span id="console-connection" class="pill">연결 확인 중</span></div>
+          <p id="console-message" class="notice" role="status" aria-live="polite">로그인 후 현재 진행 상태를 확인합니다.</p>
+          <div class="notice"><button id="bgm-enable" type="button">관리자 소리 준비</button> <label for="bgm-volume">BGM 음량</label><input id="bgm-volume" type="range" min="0" max="1" step="0.05" value="0.35"><p id="bgm-status" role="status" aria-live="polite">이 관리자 탭에서 한 번 소리를 준비하세요. 무작위 또는 상위 5개·전체 낭독 중에만 음악이 재생됩니다. 스피커 연결은 현장에서 확인하세요.</p><audio id="reading-five-bgm-audio" preload="none" loop hidden src="/jungang-memory/media/bgm/reading.mp3"></audio></div>
+          <div class="console-now"><div><small>현재</small><strong id="console-current">—</strong></div><div><label for="console-session">현재 상영 회차</label><select id="console-session"><option value="1">1회차</option><option value="2">2회차</option></select></div></div>
+          <p class="help">현재 회차의 공개 동의·상영 가능 사연만 출력합니다. 무작위 모드만 설정한 간격마다 한 편씩 반복합니다. 직접 낭독은 ‘네’ 사연을 접수순으로 보여 주며 아래에서 순서를 조정할 수 있습니다. 낭독은 다음/이전/선택으로 진행하며 자동으로 넘기지 않습니다. 회차를 바꾸면 안전을 위해 일시정지합니다.</p>
+          <div class="console-actions"><button type="button" data-mode="random">현장 사연 · 무작위</button><label for="console-interval">사연 표시 간격(초)</label><input id="console-interval" type="number" min="1" max="60" step="1" required><button id="console-interval-save" type="button">적용</button><button type="button" data-mode="reading-five">직접 낭독 · 상위 5개</button><button type="button" data-mode="reading-all">직접 낭독 · 전체</button><button type="button" data-mode="reading-script">관리자 낭독 원고</button><button type="button" data-mode="ending">엔딩</button></div><p id="console-interval-current" class="help">현재 회차 간격 확인 중</p><p class="help">현재 회차 설정에만 저장됩니다. 적용 시 현재 사연을 즉시 넘기지 않고 그 시점부터 새 간격을 셉니다. 일시정지는 해제되지 않습니다.</p>
+          <label for="console-intake">공통 QR 활성 접수 회차</label><select id="console-intake"><option value="1">1회차 접수</option><option value="2">2회차 접수</option></select><p class="help">이 선택은 새 사연의 접수 회차에만 적용됩니다. 기존 미분류 글은 검수 탭에서 배정하세요.</p>
+          <div class="console-actions"><button type="button" class="primary" data-operation="start">▶ 상영 시작</button><button type="button" data-operation="previous-story">← 이전 사연</button><button type="button" data-operation="next-story">다음 사연 →</button><button type="button" data-operation="pause">일시정지</button><button type="button" data-operation="resume">재개</button><button type="button" class="danger" data-operation="emergency-stop">긴급 정지</button></div>
+          <p class="help"><a href="/jungang-memory/screen/?view=projector" target="_blank" rel="noopener noreferrer">빔프로젝터 화면 열기 ↗</a>. 영사 화면은 로그인 없이 서버 진행을 표시합니다. 시작·일시정지·재개·긴급 정지는 이 관리 화면에서만 조작합니다. 관리 창을 닫아도 인증 유효기간 동안 계속됩니다. 로그아웃·인증 만료·서버 재시작 후에는 관리자 재로그인·시작이 필요합니다. 일시정지는 진행 위치를 보존하고, 긴급 정지는 배경만 표시합니다.</p>
+          <div class="console-misc"><button type="button" data-operation="restart-credits">크레딧 다시 시작</button><button type="button" id="console-refresh">서버 상태 다시 확인</button></div>
+          <div class="console-stories"><label for="console-story">현재 낭독 모드의 사연 선택</label><select id="console-story"><option value="">선택 전</option></select><button type="button" id="console-story-select">선택 사연 상영</button></div>
+          <section aria-label="직접 낭독 순서"><h3>직접 낭독 순서</h3><p class="help">현재 회차의 낭독 희망자 전체 순서입니다. 위/아래로 옮긴 뒤 저장하세요. 상위 5명이 선정되며, 대기·불가 또는 동의하지 않은 글은 포함하지 않습니다.</p><ol id="console-reading-order"></ol><button type="button" id="console-reading-save">낭독 순서 저장</button></section>
+          <section aria-label="관리자 낭독 원고"><h3>관리자 낭독 원고 · 현재 회차</h3><p class="help">원고를 입력·저장한 뒤 ‘저장 원고 선택’을 누르고 관리자 낭독 원고 모드로 전환하세요. 저장이나 모드 전환만으로 원고를 자동 선택하지 않습니다. 선택한 원고만 아래에서 위로 이동하며 원문 줄바꿈을 유지합니다. 빈 원고·선택 해제는 표시하지 않습니다.</p><p id="console-script-current" role="status">선택 없음</p><label for="console-script-cue">편집할 원고</label><select id="console-script-cue"><option value="">원고 선택</option><option value="12">원고 12</option><option value="13">원고 13</option><option value="14">원고 14</option></select><label for="console-script-text">낭독 원고 (5,000자 이내)</label><textarea id="console-script-text" rows="10" maxlength="10000"></textarea><button type="button" id="console-script-save">원고 저장</button><button type="button" id="console-script-select">저장 원고 선택</button><button type="button" id="console-script-clear">원고 선택 해제</button></section>
+          <section aria-label="엔딩 고정 문구"><h3>엔딩 고정 문구 · 현재 회차</h3><p class="help">고정 문구와 해당 회차의 크레딧 동의 별명이 함께 아래에서 위로 이동합니다. 원문 줄바꿈을 유지합니다. 미리보기만으로 저장하지 않습니다.</p><label for="console-ending-text">고정 문구 (5,000자 이내)</label><textarea id="console-ending-text" rows="8" maxlength="10000"></textarea><button type="button" id="console-ending-preview-button">문구 미리보기</button><button type="button" id="console-ending-save">문구 저장</button><pre id="console-ending-preview"></pre></section>
+          <section aria-label="낭독 원고와 엔딩 스크롤"><h3>현재 회차 스크롤 제어</h3><label for="console-scroll-speed">낭독 원고 · 엔딩 속도 (8~60 px/초)</label><input id="console-scroll-speed" type="number" min="8" max="60" step="1"><button type="button" id="console-scroll-save">속도 저장</button><button type="button" id="console-scroll-toggle">스크롤 정지</button></section>
+        </section>
+      </div>
+
+      <div id="console-advanced-settings" class="console-page" hidden>
+      <section id="event-section" aria-labelledby="event-title">
+        <div class="section-heading"><div><p class="eyebrow">01 · 화면 꾸미기</p><h2 id="event-title">우리 행사에 맞게</h2></div><span id="config-version" class="pill"></span></div>
+        <ol class="workflow" aria-label="화면 변경 순서"><li>1. 내용 수정</li><li>2. 비공개 미리보기</li><li>3. 직접 공개 적용</li></ol>
+        <div class="editor-grid">
+          <section class="panel" aria-label="행사 설정 편집">
+            <form id="config-form">
+              <fieldset id="config-fields"><legend>참여 안내</legend>
+                <label for="eventName">행사 이름 <span>최대 60자</span></label><input id="eventName" type="text" required maxlength="120">
+                <label for="participationGuide">참여 안내 문구 <span>최대 240자</span></label><textarea id="participationGuide" rows="3" required maxlength="480"></textarea>
+                <label for="inputExample">입력창 예시 <span>최대 120자</span></label><input id="inputExample" type="text" required maxlength="240">
+                <label for="waitingText">추억이 없을 때 보여줄 문구 <span>최대 120자</span></label><textarea id="waitingText" rows="2" required maxlength="240"></textarea>
+                <div class="field-grid"><div hidden><label for="background">이전 배경 설정 보존</label><select id="background"><option value="auto">자동</option><option value="marquee">극장 입구</option><option value="screen">영화 스크린</option><option value="street">저녁 골목</option><option value="blossom">벚꽃길</option></select></div><div><label for="fontSize">상영 글자 크기</label><select id="fontSize"><option value="small">작게</option><option value="normal">기본</option><option value="large">크게</option></select></div></div>
+                <input id="intervalSeconds" type="hidden"><p class="help">무작위 사연 표시 간격은 사연 상영 메뉴에서 조정합니다. 낭독 모드는 운영자 수동 진행입니다. 현재 회차의 저장된 간격은 보존됩니다.</p>
+              </fieldset>
+              <div class="actions"><button id="preview-config" class="primary" type="submit">비공개 미리보기</button><button id="discard-config" type="button">현재 공개본으로 되돌리기</button></div>
+            </form>
+            <details class="history"><summary>이전 공개 설정 · 현재 회차 최근 20개</summary><p class="help">가져오기는 초안만 바꿉니다. 미리보기 후 직접 공개해야 합니다.</p><label for="config-history">이전 공개 설정</label><select id="config-history"><option value="">기록 없음</option></select><button id="restore-config" type="button" disabled>선택한 설정을 초안으로</button></details>
+          </section>
+          <section class="panel preview-panel" aria-labelledby="preview-title">
+            <div class="preview-heading"><h3 id="preview-title">나만 보는 미리보기</h3><span class="private-badge">비공개</span></div>
+            <p id="config-message" class="message" role="status" aria-live="polite">내용을 수정하고 미리보기를 눌러 주세요.</p>
+            <div id="config-preview" hidden>
+              <p class="eyebrow preview-label">참여 화면 안내</p><div class="participant-preview"><h4 id="preview-name"></h4><p id="preview-guide"></p><div id="preview-example" class="example"></div></div>
+              <p class="eyebrow preview-label">추억이 없을 때의 상영 화면</p><div id="preview-stage" class="preview-stage" data-scene="marquee" data-font="normal"><p id="preview-waiting"></p></div><p id="preview-timing" class="help"></p>
+            </div>
+            <p class="note">이 영역은 운영자만 보는 축소 모형입니다. 참여·상영 화면으로 전송되거나 저장되지 않습니다. 실제 화면은 기기 크기에 따라 달라집니다.</p>
+            <button id="publish-config" class="publish" type="button" disabled>이 미리보기대로 공개 적용</button>
+          </section>
+        </div>
+      </section>
+      <section id="operation-section" class="panel operations" aria-labelledby="operation-title">
+        <div><p class="eyebrow">02 · 상영 제어</p><h2 id="operation-title">현장 흐름에 맞춰</h2><p class="notice" role="status" aria-live="polite"><strong id="approval-current"></strong></p><p id="approval-policy" class="help">이전 승인 설정은 보존용이며 신규 접수에는 적용되지 않습니다. 새 공개·상영 동의 글은 ON/OFF와 관계없이 접수 후 상영 가능합니다. 기존 대기·숨김·공개 상태와 관리자 수정은 그대로 유지됩니다. 실제 표시는 현재 회차·상영 모드·목록 고정·동의 조건을 따릅니다.</p><p class="help">설정은 아래 적용 버튼을 눌러야 반영됩니다. 일시정지 중에도 숨김·영구 삭제는 다음 동기화에 반영됩니다.</p></div>
+        <form id="settings-form"><fieldset id="settings-fields"><legend class="sr-only">상영 설정</legend><label class="check"><input id="paused" type="checkbox"><span><strong>상영 일시정지</strong><small>추억 목록을 고정합니다. 새 글 접수는 계속됩니다.</small></span></label><label class="check"><input id="approval" type="checkbox" aria-describedby="approval-policy approval-draft"><span><strong>이전 승인 설정 ON (보존용)</strong><small>체크 ON / 해제 OFF · 저장해도 신규 자동 공개·기존 글 상태는 바뀌지 않습니다.</small></span></label></fieldset><p id="approval-draft" class="message" role="status" aria-live="polite" hidden></p><button id="save-settings" class="primary" type="submit" disabled>상영 설정 바로 적용</button></form>
+      </section>
+      </div>
+      <div id="console-review" class="console-page" hidden>
+      <section class="panel" aria-label="미분류 사연 회차 배정"><h2>미분류 사연 · 관리자 배정</h2><p class="help">기존 미분류 사연만 회차를 선택해 배정합니다. 원문·동의 내용은 바꾸지 않습니다. 배정 뒤 서버 상태를 다시 확인합니다.</p><div id="console-assignments"></div><p id="console-assignment-status" role="status" aria-live="polite"></p></section>
+      <section id="memory-section" aria-labelledby="memory-title"><div class="section-heading"><div><p class="eyebrow">03 · 추억 관리</p><h2 id="memory-title">원문은 그대로, 표시는 따로</h2><p class="help">원문·작성 시각·응답은 별도 보존합니다. 대기/상영 가능/상영 불가를 선택하세요. 불가 글은 상영·엔딩에서 제외됩니다. 숨김도 DB와 결과 정리에 포함하며 자동 삭제하지 않습니다. 영구 삭제는 모든 응답·수정 이력을 지우며 복구할 수 없습니다. 새 동의 글은 공개·상영 기간 제한이 없고, 기존 글은 작성 후 7일 공개 조건을 유지합니다. 검수 상태를 바꾸거나 문구를 편집해도 동의 범위는 바뀌지 않으며 만료된 기존 글은 재공개되지 않습니다. 동의 철회·공개 중단·삭제 요청(__DELETION_CONTACT__)은 확인 후 숨김·영구 삭제로 처리하세요. 삭제 재전송 방지를 위해 내용 없는 요청 번호만 남깁니다.</p><p><a id="export-csv" href="/jungang-memory/manage/api/export" download="jungang-memory-results.csv">결과 CSV 내려받기 · 전체 상태 포함</a></p><p class="help">로그인 필수 · UTF-8 BOM CSV · Excel/Google Sheets에서 직접 열기. Google Sheets 자동 동기화가 아닙니다. 개인정보가 포함되므로 승인되지 않은 외부 공유·복제는 하지 마세요.</p></div><span id="memory-count" class="pill"></span></div><div class="filters" role="group" aria-label="추억 상태 필터"><button type="button" data-filter="all" aria-pressed="true">전체</button><button type="button" data-filter="pending" aria-pressed="false">대기</button><button type="button" data-filter="visible" aria-pressed="false">상영 가능</button><button type="button" data-filter="hidden" aria-pressed="false">상영 불가</button></div><p id="memory-empty" class="empty" hidden>이 상태의 추억이 없습니다.</p><div id="memory-list" class="memory-list"></div></section>
+      </div>
+
+      <footer class="footer">행사 전용 운영 화면 · 응답은 삭제 요청 또는 관리자 삭제 전까지 보관하며 편집 이력은 기간 제한 없이 최근 20개를 유지합니다.<br>개인정보·연락처·HTML은 입력할 수 없습니다.</footer>
+    </div>
+    <noscript><p class="notice error">안전하게 로그인하고 변경을 확인하려면 자바스크립트를 켜 주세요.</p></noscript>
+  </main>
+</body>
+</html>

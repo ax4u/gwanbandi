@@ -1,0 +1,39 @@
+/* Story-only: retain readable palette, typography and 16:9 canvas, no slide/media assets. */
+@font-face{font-family:JM-Pretendard;font-style:normal;font-weight:600;font-display:swap;src:url('/jungang-memory/assets/Pretendard-SemiBold.woff2') format('woff2')}
+.theater-page{margin:0;padding:0;min-height:100dvh;background:#090807;color:#e5d4ba;font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-synthesis:none;overflow:hidden}
+.theater-page [hidden]{display:none!important}
+.theater-page .projector{display:flex;align-items:center;justify-content:center;width:100vw;height:100dvh;margin:0;padding:0;min-height:0;border:0;border-radius:0;background:#090807;overflow:hidden;container-type:normal}
+.stage-view{display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-width:0;background:#090807}
+.theater-canvas{position:relative;width:min(100vw,177.777778dvh);aspect-ratio:16/9;container-type:inline-size;isolation:isolate;overflow:hidden;background:#e2cca3}
+.theater-page .screen-body{position:absolute;inset:0;width:100%;height:100%;display:block;padding:0;min-height:0;background:#090807}
+.theater-page .screen-memory{position:absolute;inset:18% 12% 8%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.7cqw;min-height:0;width:auto;padding:0;border:0;box-shadow:none;background:transparent;color:#f6f0df;text-align:center;overflow:hidden}
+.theater-page .screen-memory:before,.theater-page .screen-memory:after{content:none}
+.theater-page .projector .screen-memory blockquote,.theater-page .projector[data-font] .screen-memory blockquote{font-family:JM-Pretendard,system-ui,sans-serif;font-weight:600;font-size:5.6875cqw;line-height:1.5;letter-spacing:0;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty;width:100%;flex:none;margin:0;color:#f6f0df;text-shadow:none}
+.theater-page .screen-nickname{font-family:JM-Pretendard,system-ui,sans-serif;font-weight:600;font-size:2.2cqw;line-height:1.5;color:#f6f0df;text-shadow:none;white-space:pre-wrap;margin:0;flex:none;max-width:100%;overflow-wrap:anywhere}
+.theater-page .screen-nickname:before{content:'— ';color:#f6f0df}
+/* Shared neutral background for both direct-reading modes. */
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]){background:#101923}
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]) .screen-memory{inset:17% 12% 19%;gap:2.5cqw;justify-content:flex-start;color:#f1e6cc}
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]) #screen-eyebrow{display:block;margin:0;color:#aa9678;font:400 1.65cqw/1.4 'Malgun Gothic',sans-serif;flex:none}
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]) #screen-story-title{margin:0;color:#deb866;font:700 3.5cqw/1.3 'Malgun Gothic',sans-serif;flex:none;max-width:100%;overflow-wrap:anywhere}
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]) #screen-text{font-family:'Malgun Gothic',sans-serif;font-weight:400;font-size:3.75cqw;line-height:1.55;color:#f1e6cc;white-space:pre-wrap;overflow-wrap:anywhere;text-wrap:wrap}
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]) #screen-nickname{font-family:'Malgun Gothic',sans-serif;font-weight:400;font-size:2.35cqw;line-height:1.4;color:#f1d49b;margin-top:auto;overflow-wrap:anywhere}
+#story-stage:is([data-story-mode="reading-five"],[data-story-mode="reading-all"]) #screen-nickname:before{color:#f1d49b}
+.ending-stage{position:absolute;inset:0;background:#000;color:#fff}
+.credits-window{width:100%;height:100%;padding:0 5%;overflow:hidden;position:relative;min-width:0}
+.credits-roll{text-align:center;will-change:transform;display:flow-root}
+#reading-stage{background:#090807}
+#reading-window{position:absolute;inset:16% 12% 8%;width:auto;height:auto;padding:0;overflow:hidden}
+.credits-roll>p{font-family:JM-Pretendard,system-ui,sans-serif;font-size:2.5cqw;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;color:#f7f7f7;margin:1.5em 0;padding:.8em 0}
+#reading-roll>p{color:#f1e6cc}
+.theater-page .screen-controls{display:none!important}
+.theater-page.controls-open .screen-controls{display:flex!important;position:fixed;z-index:200;inset:12px 12px auto;max-height:calc(100dvh - 24px);overflow:auto;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:12px;padding:18px;margin:0;background:#211813;color:#f3e6d3;border:1px solid #8a6c50;border-radius:8px;font:14px/1.6 system-ui;opacity:1;transform:none}
+.screen-controls button,.screen-controls a{font:inherit;color:inherit;padding:8px 12px;min-height:44px;background:#30231b;border:1px solid #8a6c50;border-radius:5px}
+.screen-controls p{width:100%;margin:0}
+.screen-controls .screen-join{display:flex;align-items:center;gap:12px;padding:0;border:0;background:none}
+.screen-controls .screen-join p{width:auto}
+.screen-controls .screen-join img{display:block;width:120px;height:120px}
+#console-ending-preview{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;max-height:45vh;overflow:auto;background:#f5f3ec;padding:16px}
+#console-ending-text,#console-script-text{display:block;width:100%;font:inherit;white-space:pre-wrap}
+#preview-stage{background-image:none;background-color:#e2cca3;color:#4e2a20}
+#console-reading-order li{margin:8px 0}#console-reading-order button{margin-left:6px}
